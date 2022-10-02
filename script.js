@@ -15,7 +15,9 @@ class Calculator {
   delete() {}
 
   appendNumber(number) {
-    this.currentOperand = this.currentOperand.toString() + number.toString();
+    if (number === '.')
+    this.currentOperand =  this.currentOperand.toString() + number.toString();
+    console.log(this.currentOperand)
   }
 
   chooseOperation(operation) {}
@@ -46,6 +48,7 @@ const calculator = new Calculator(
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    console.log(button)
     calculator.appendNumber(button.innerText);
     calculator.updateDisplay();
   });
