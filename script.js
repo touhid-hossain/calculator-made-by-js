@@ -15,17 +15,26 @@ class Calculator {
   delete() {}
 
   appendNumber(number) {
-    if (number === '.')
+    if (number === '.' && this.currentOperand.includes('.')) return
     this.currentOperand =  this.currentOperand.toString() + number.toString();
     console.log(this.currentOperand)
   }
 
-  chooseOperation(operation) {}
+  chooseOperation(operation) {
+    if (this.currentOperand === '') return
+    if (this.previousOperand !== '') {
+      this.compute()
+    }
+    this.operation = operation
+    this.previousOperand = this.currentOperand
+    this.currentOperand = ''
+  }
 
   compute() {}
 
   updateDisplay() {
     this.currentOperandTextElement.innerText = this.currentOperand;
+    this.previousOperandTextElement.innerText = this.previousOperand;
   }
 }
 
@@ -50,6 +59,14 @@ numberButtons.forEach((button) => {
   button.addEventListener("click", () => {
     console.log(button)
     calculator.appendNumber(button.innerText);
+    calculator.updateDisplay();
+  });
+});
+
+operationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log(button)
+    calculator.chooseOperation(button.innerText);
     calculator.updateDisplay();
   });
 });
